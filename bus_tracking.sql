@@ -1,0 +1,389 @@
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
+--
+-- Host: localhost    Database: bus_tracking
+-- ------------------------------------------------------
+-- Server version	8.0.46
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bus`
+--
+
+DROP TABLE IF EXISTS `bus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bus` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `bus_number` varchar(50) NOT NULL,
+  `driver_name` varchar(100) DEFAULT NULL,
+  `route_name` varchar(100) DEFAULT NULL,
+  `status` varchar(30) DEFAULT NULL,
+  `bus_name` varchar(255) DEFAULT NULL,
+  `capacity` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bus`
+--
+
+LOCK TABLES `bus` WRITE;
+/*!40000 ALTER TABLE `bus` DISABLE KEYS */;
+INSERT INTO `bus` VALUES (1,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(2,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(3,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(4,'BUS-101',NULL,NULL,'ACTIVE','School Bus',40),(5,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(6,'BUS-101',NULL,NULL,'ACTIVE','School Bus',40),(7,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(8,'BUS-101',NULL,NULL,'ACTIVE','School Bus',40),(9,'BUS-101','John','Route-1','ACTIVE',NULL,NULL),(10,'BUS-101',NULL,NULL,'ACTIVE','School Bus',40),(11,'BUS-101','John','Route-1','ACTIVE',NULL,NULL);
+/*!40000 ALTER TABLE `bus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bus_locations`
+--
+
+DROP TABLE IF EXISTS `bus_locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bus_locations` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `accuracy` double DEFAULT NULL,
+  `bearing` double DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `location_time` datetime(6) DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `speed` double DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKifqlcw69rxf4s1iaxws7lyyqy` (`bus_id`),
+  CONSTRAINT `FKifqlcw69rxf4s1iaxws7lyyqy` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`),
+  CONSTRAINT `FKlj5f60d8cknlqlog6src21rq6` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bus_locations`
+--
+
+LOCK TABLES `bus_locations` WRITE;
+/*!40000 ALTER TABLE `bus_locations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bus_locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `buses`
+--
+
+DROP TABLE IF EXISTS `buses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `buses` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `bus_name` varchar(255) DEFAULT NULL,
+  `bus_number` varchar(255) DEFAULT NULL,
+  `capacity` int DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `buses`
+--
+
+LOCK TABLES `buses` WRITE;
+/*!40000 ALTER TABLE `buses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `buses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `driver`
+--
+
+DROP TABLE IF EXISTS `driver`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `driver` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `driver_name` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `license_number` varchar(100) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver`
+--
+
+LOCK TABLES `driver` WRITE;
+/*!40000 ALTER TABLE `driver` DISABLE KEYS */;
+/*!40000 ALTER TABLE `driver` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `drivers`
+--
+
+DROP TABLE IF EXISTS `drivers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `drivers` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `full_name` varchar(255) DEFAULT NULL,
+  `license_number` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKpqm4hulcl4tn4j8yoqdigbxhw` (`bus_id`),
+  CONSTRAINT `FK31fqbg6sxuvif61o9vrhfv4e2` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`id`),
+  CONSTRAINT `FKpqm4hulcl4tn4j8yoqdigbxhw` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `drivers`
+--
+
+LOCK TABLES `drivers` WRITE;
+/*!40000 ALTER TABLE `drivers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `drivers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `locations`
+--
+
+DROP TABLE IF EXISTS `locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `locations` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `bus_id` bigint NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `speed` double DEFAULT '0',
+  `heading` double DEFAULT '0',
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_location_bus` (`bus_id`),
+  CONSTRAINT `fk_location_bus` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locations`
+--
+
+LOCK TABLES `locations` WRITE;
+/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` VALUES (58,1,20.333657328524946,85.80643706478689,0,0,'2026-07-03 05:38:34'),(59,1,20.333626703404477,85.8064403623792,0,0,'2026-07-03 05:39:16'),(60,1,20.333641639025313,85.80644872270494,0,0,'2026-07-03 05:42:08'),(61,1,20.33363337705427,85.80644698299056,0,0,'2026-07-03 05:42:19'),(62,1,20.33363014946802,85.80645883393959,0,0,'2026-07-03 05:44:04'),(63,1,20.33363014946802,85.80645883393959,0,0,'2026-07-03 05:44:04'),(64,1,20.333628518563422,85.80645476248971,0,0,'2026-07-03 05:44:16'),(65,1,20.333628518563422,85.80645476248971,0,0,'2026-07-03 05:44:16'),(66,1,20.3336557168719,85.80645870373094,0,0,'2026-07-03 05:53:14'),(67,1,20.33361749928112,85.8064535295205,0,0,'2026-07-03 05:53:29'),(68,1,20.33361967134914,85.80645270369413,0,0,'2026-07-03 05:57:49'),(69,1,20.33361967134914,85.80645270369413,0,0,'2026-07-03 05:58:46'),(70,1,20.333589957387954,85.80646235019648,0,0,'2026-07-03 07:17:41'),(71,1,20.3335617228855,85.8064172972147,0,0,'2026-07-03 07:25:29'),(72,1,20.333640672510015,85.80645212041681,0,0,'2026-07-03 16:51:36'),(73,1,20.333607814157318,85.80652348339142,0,0,'2026-07-03 20:53:47'),(74,1,20.333607814157318,85.80652348339142,0,0,'2026-07-03 20:54:54'),(75,1,20.33362236168728,85.80646797313796,0,0,'2026-07-03 21:11:09'),(76,1,20.33362236168728,85.80646797313796,0,0,'2026-07-03 21:11:09'),(77,1,20.33362236168728,85.80646797313796,0,0,'2026-07-03 21:11:18'),(78,1,20.33362236168728,85.80646797313796,0,0,'2026-07-03 21:11:18'),(79,1,20.3335494,85.8067877,0,0,'2026-07-03 21:24:48'),(80,1,20.3335353,85.8068026,0.1734641045331955,135.3018798828125,'2026-07-03 21:24:51'),(81,1,20.3335315,85.8068066,0.3357464373111725,135.3018798828125,'2026-07-03 21:24:52'),(82,1,20.3335336,85.8068211,0.11939160525798798,90.00696563720703,'2026-07-03 21:24:53'),(83,1,20.3335338,85.8068223,0.11946960538625717,90.0016860961914,'2026-07-03 21:24:54'),(84,1,20.3335405,85.8068164,0.1491757482290268,89.99920654296875,'2026-07-03 21:24:54'),(85,1,20.3335421,85.806815,0.1498609185218811,89.99922943115234,'2026-07-03 21:24:55'),(86,1,20.3335433,85.8068182,0.11648105084896088,89.99955749511719,'2026-07-03 21:24:56'),(87,1,20.3335432,85.8068197,0.11258765310049057,90.00003051757812,'2026-07-03 21:24:57'),(88,1,20.333543,85.8068201,0.11341597139835358,90.0000228881836,'2026-07-03 21:24:58'),(89,1,20.3335438,85.8068245,0.11126197129487991,89.99982452392578,'2026-07-03 21:24:59'),(90,1,20.3335439,85.8068257,0.11238876730203629,89.99996948242188,'2026-07-03 21:25:00'),(91,1,20.3335418,85.8068221,0.11225493997335434,90.00090026855469,'2026-07-03 21:25:01'),(92,1,20.3335411,85.8068209,0.11301984637975693,90.00028228759766,'2026-07-03 21:25:01'),(93,1,20.3335421,85.8068229,0.09175600111484528,0,'2026-07-03 21:25:02'),(94,1,20.3335423,85.8068234,0.09291891753673553,0,'2026-07-03 21:25:03'),(95,1,20.333542,85.8068266,0.09622751921415329,0,'2026-07-03 21:25:04'),(96,1,20.3335417,85.8068276,0.10894548147916794,108.10003662109375,'2026-07-03 21:25:05'),(97,1,20.3335416,85.8068279,0.1101161390542984,107.69418334960938,'2026-07-03 21:25:06'),(98,1,20.3335424,85.8068296,0.08156804740428925,0,'2026-07-03 21:25:07'),(99,1,20.3335428,85.8068277,0.0917220339179039,0,'2026-07-03 21:25:08'),(100,1,20.3335429,85.8068278,0.09290280938148499,0,'2026-07-03 21:25:09'),(101,1,20.3335441,85.8068295,0.07629188895225525,0,'2026-07-03 21:25:10'),(102,1,20.3335444,85.8068305,0.10574308782815933,72.87079620361328,'2026-07-03 21:25:11'),(103,1,20.3335445,85.8068309,0.10668551176786423,71.04720306396484,'2026-07-03 21:25:12'),(104,1,20.3335438,85.8068334,0.10736842453479767,62.66285705566406,'2026-07-03 21:25:13'),(105,1,20.3335436,85.8068333,0.10707034170627594,63.09718704223633,'2026-07-03 21:25:14'),(106,1,20.3335436,85.8068333,0.10781101137399673,63.35184097290039,'2026-07-03 21:25:14'),(107,1,20.333544,85.8068341,0.08919338136911392,0,'2026-07-03 21:25:15'),(108,1,20.3335437,85.806836,0.0840875655412674,0,'2026-07-03 21:25:16'),(109,1,20.3335437,85.8068371,0.08360852301120758,0,'2026-07-03 21:25:17'),(110,1,20.333514,85.8067926,0,0,'2026-07-03 21:25:54'),(111,1,20.3335061,85.8067712,0.177293062210083,248.38565063476562,'2026-07-03 21:25:58'),(112,1,20.3335042,85.8067662,0.32896751165390015,248.38565063476562,'2026-07-03 21:25:59'),(113,1,20.3335024,85.8067617,1.0537209510803223,90.60065460205078,'2026-07-03 21:26:00'),(114,1,20.3335038,85.8067621,0.11026188731193542,148.38870239257812,'2026-07-03 21:26:01'),(115,1,20.3335046,85.8067562,0.1133323460817337,90.10650634765625,'2026-07-03 21:26:02'),(116,1,20.3335049,85.8067549,0.11475243419408798,90.00016784667969,'2026-07-03 21:26:03'),(117,1,20.3335031,85.8067517,0.09725695103406906,0,'2026-07-03 21:26:04'),(118,1,20.3335041,85.8067521,0.10417814552783966,43.41337203979492,'2026-07-03 21:26:05'),(119,1,20.3335045,85.8067522,0.10523927211761475,40.25026321411133,'2026-07-03 21:26:06'),(120,1,20.3335068,85.8067551,0.09287874400615692,0,'2026-07-03 21:26:07'),(121,1,20.3335079,85.806755,0.10509119182825089,58.09233856201172,'2026-07-03 21:26:07'),(122,1,20.3335076,85.8067539,0.08992733806371689,0,'2026-07-03 21:26:08'),(123,1,20.3335077,85.8067538,0.09121941775083542,0,'2026-07-03 21:26:09'),(124,1,20.333507,85.8067523,0.08581028878688812,0,'2026-07-03 21:26:10'),(125,1,20.333507,85.8067516,0.08597996830940247,0,'2026-07-03 21:26:11'),(126,1,20.3335072,85.8067516,0.08713313192129135,0,'2026-07-03 21:26:12'),(127,1,20.3335071,85.8067501,0.08858013153076172,0,'2026-07-03 21:26:13'),(128,1,20.3335078,85.8067513,0.10782540589570999,12.890018463134766,'2026-07-03 21:26:14'),(129,1,20.3335082,85.8067517,0.10843010991811752,11.829301834106445,'2026-07-03 21:26:15'),(130,1,20.3335083,85.8067513,0.0901671051979065,0,'2026-07-03 21:26:16'),(131,1,20.3335085,85.8067512,0.09124981611967087,0,'2026-07-03 21:26:17'),(132,1,20.3335089,85.8067505,0.09249819070100784,0,'2026-07-03 21:26:18'),(133,1,20.3335084,85.8067497,0.08267378807067871,0,'2026-07-03 21:26:19'),(134,1,20.3335098,85.8067511,0.08601228892803192,0,'2026-07-03 21:26:20'),(135,1,20.33351,85.8067514,0.08643723279237747,0,'2026-07-03 21:26:20'),(136,1,20.3335105,85.8067499,0.10102896392345428,350.623779296875,'2026-07-03 21:26:21'),(137,1,20.3335109,85.8067492,0.09122233837842941,0,'2026-07-03 21:26:22'),(138,1,20.3335112,85.8067491,0.09257294237613678,0,'2026-07-03 21:26:23'),(139,1,20.3335116,85.8067487,0.08261129260063171,0,'2026-07-03 21:26:24'),(140,1,20.3335118,85.8067487,0.08325519412755966,0,'2026-07-03 21:26:25'),(141,1,20.3335117,85.8067488,0.0790868028998375,0,'2026-07-03 21:26:26'),(142,1,20.333512,85.8067492,0.08883336931467056,0,'2026-07-03 21:26:27'),(143,1,20.333512,85.8067488,0.08914772421121597,0,'2026-07-03 21:26:27'),(144,1,20.3335688,85.8067813,0,0,'2026-07-03 21:27:27');
+/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `parents`
+--
+
+DROP TABLE IF EXISTS `parents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `parents` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `phone` varchar(255) DEFAULT NULL,
+  `student_class` varchar(255) DEFAULT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_c1t2v6wf187l8w0yew9sph3l4` (`user_id`),
+  CONSTRAINT `FKchh8tf8w072tapgqoijrahojk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `parents`
+--
+
+LOCK TABLES `parents` WRITE;
+/*!40000 ALTER TABLE `parents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `routes`
+--
+
+DROP TABLE IF EXISTS `routes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `routes` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `route_name` varchar(100) DEFAULT NULL,
+  `start_location` varchar(150) DEFAULT NULL,
+  `destination` varchar(150) DEFAULT NULL,
+  `distance` double DEFAULT NULL,
+  `estimated_time` int DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_fpleklnmbo39eigqs8n5wa4s0` (`bus_id`),
+  CONSTRAINT `FKfifby6x0g0k9rmd26mdmef3vt` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`id`),
+  CONSTRAINT `FKpyu7c14n6bxhe1e0bon51bd1x` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `routes`
+--
+
+LOCK TABLES `routes` WRITE;
+/*!40000 ALTER TABLE `routes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `routes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `student` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `student_name` varchar(100) DEFAULT NULL,
+  `roll_number` varchar(50) DEFAULT NULL,
+  `class_name` varchar(50) DEFAULT NULL,
+  `section` varchar(20) DEFAULT NULL,
+  `parent_name` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bus_id` (`bus_id`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `students`
+--
+
+DROP TABLE IF EXISTS `students`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `students` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `admission_no` varchar(255) DEFAULT NULL,
+  `section` varchar(255) DEFAULT NULL,
+  `student_class` varchar(255) DEFAULT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  `parent_id` bigint DEFAULT NULL,
+  `route_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK7bbpphkk8f0aoav3iiih3mh4e` (`parent_id`),
+  KEY `FKrcpn1xolqgb0eifjl687cah5w` (`route_id`),
+  KEY `FKl26hgvkslqtbd565nhyftthcr` (`bus_id`),
+  CONSTRAINT `FK7bbpphkk8f0aoav3iiih3mh4e` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`id`),
+  CONSTRAINT `FKl26hgvkslqtbd565nhyftthcr` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`),
+  CONSTRAINT `FKl9slo9m38erlqu9davd9826bm` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`id`),
+  CONSTRAINT `FKrcpn1xolqgb0eifjl687cah5w` FOREIGN KEY (`route_id`) REFERENCES `routes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `students`
+--
+
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `trip_history`
+--
+
+DROP TABLE IF EXISTS `trip_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `trip_history` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `average_speed` double DEFAULT NULL,
+  `end_time` datetime(6) DEFAULT NULL,
+  `start_time` datetime(6) DEFAULT NULL,
+  `total_distance` double DEFAULT NULL,
+  `bus_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK6irm0c38bmgtp2dkh5cwx07d3` (`bus_id`),
+  CONSTRAINT `FK1wm2sqee5bn2jn09apldrj6oq` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`id`),
+  CONSTRAINT `FK6irm0c38bmgtp2dkh5cwx07d3` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trip_history`
+--
+
+LOCK TABLES `trip_history` WRITE;
+/*!40000 ALTER TABLE `trip_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trip_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('ADMIN','DRIVER','PARENT') DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'admin@gmail.com','System Admin','admin123','ADMIN'),(2,'driver@gmail.com','Bus Driver','driver123','DRIVER'),(3,'parent@gmail.com','Parent User','parent123','PARENT');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-07-04 14:25:00
